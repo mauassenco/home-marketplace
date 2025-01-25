@@ -2,6 +2,14 @@
 Find and list houses for sale or for rent. 
 This is a React / Firebase v9 project from the React Front To Back course.
 
+## Technomlogies
+* Eslint
+* Prettier
+* Husky
+* React
+* React Router Dom
+* Firebase
+
 ## Usage
 ### Geolocation
 The listings use Google geocoding to get the coords from the address field. 
