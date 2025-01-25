@@ -9,5 +9,5 @@ You need to either rename .env.example to .env and add your Google Geocode API k
 
 ## Run
 
-```npm install```
-```npm run start```
+* ```npm install```
+* ```npm run start```
