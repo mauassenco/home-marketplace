@@ -1,7 +1,5 @@
-/* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
-import { collection, getDocs, query, where, orderBy, limit } from 'firebase/firestore';
+import { collection, getDocs, query, where, orderBy, limit, startAfter } from 'firebase/firestore';
 import { db } from '../firebase.config';
 import { toast } from 'react-toastify';
 import Spinner from '../components/Spinner';
@@ -19,7 +17,7 @@ const Offers = () => {
         const listingsRef = collection(db, 'listings');
 
         // Create a query
-        const q = query(listingsRef, where('offer', '==', true), orderBy('timestamp', 'desc'), limit(10));
+        const q = query(listingsRef, where('offer', '==', true), orderBy('timestamp', 'desc'), limit(2));
 
         // Execute query
         const querySnap = await getDocs(q);
@@ -48,8 +46,42 @@ const Offers = () => {
   }, []);
 
   // Pagination / Load More
-  // const onFetchMoreListings = async () => {
-  // }
+  const onFetchMoreListings = async () => {
+    try {
+      // Get reference
+      const listingsRef = collection(db, 'listings');
+
+      // Create a query
+      const q = query(
+        listingsRef,
+        where('offer', '==', true),
+        orderBy('timestamp', 'desc'),
+        startAfter(lastFetchedListing),
+        limit(2),
+      );
+
+      // Execute query
+      const querySnap = await getDocs(q);
+
+      const lastVisible = querySnap.docs[querySnap.docs.length - 1];
+      setLastFetchedListing(lastVisible);
+
+      const listings = [];
+
+      querySnap.forEach((doc) => {
+        return listings.push({
+          id: doc.id,
+          data: doc.data(),
+        });
+      });
+
+      setListings((prevState) => [...prevState, ...listings]);
+      setLoading(false);
+    } catch (error) {
+      toast.error('Could not fetch listings');
+      console.log(error);
+    }
+  };
 
   return (
     <div className="category">
@@ -71,7 +103,11 @@ const Offers = () => {
 
           <br />
           <br />
-          {/* {lastFetchedListing && <p className="loadMore">Load More</p>} */}
+          {lastFetchedListing && (
+            <p className="loadMore" onClick={onFetchMoreListings}>
+              Load More
+            </p>
+          )}
         </>
       ) : (
         <p>There are no current offers</p>

@@ -6,7 +6,7 @@ import { toast } from 'react-toastify';
 import Spinner from '../components/Spinner';
 import ListingItem from '../components/ListingItem';
 
-function Category() {
+const Category = () => {
   const [listings, setListings] = useState(null);
   const [loading, setLoading] = useState(true);
   const [lastFetchedListing, setLastFetchedListing] = useState(null);
@@ -20,7 +20,7 @@ function Category() {
         const listingsRef = collection(db, 'listings');
 
         // Create a query
-        const q = query(listingsRef, where('type', '==', params.categoryName), orderBy('timestamp', 'desc'), limit(10));
+        const q = query(listingsRef, where('type', '==', params.categoryName), orderBy('timestamp', 'desc'), limit(2));
 
         // Execute query
         const querySnap = await getDocs(q);
@@ -60,7 +60,7 @@ function Category() {
         where('type', '==', params.categoryName),
         orderBy('timestamp', 'desc'),
         startAfter(lastFetchedListing),
-        limit(10),
+        limit(2),
       );
 
       // Execute query
@@ -117,6 +117,6 @@ function Category() {
       )}
     </div>
   );
-}
+};
 
 export default Category;

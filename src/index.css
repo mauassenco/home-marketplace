@@ -72,18 +72,18 @@ button {
   justify-content: center;
 }
 
-.removeIcon {
-  cursor: pointer;
-  position: absolute;
-  top: -3%;
-  right: -2%;
-}
-
 .editIcon {
   cursor: pointer;
   position: absolute;
-  top: -3.4%;
-  right: 20px;
+  top: 15px;
+  right: 0;
+}
+
+.removeIcon {
+  cursor: pointer;
+  position: absolute;
+  bottom: 15px;
+  right: 0;
 }
 
 .pageContainer,
@@ -432,6 +432,7 @@ button {
 
 .categoryListingDetails {
   width: 65%;
+  margin-left: 1rem;
 }
 @media (min-width: 1024px) {
   .categoryListingDetails {
