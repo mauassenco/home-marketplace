@@ -1,23 +1,19 @@
 House Marketplace
 Find and list houses for sale or for rent. This is a React / Firebase v9 project.
 
+## Technologies
+
 - Reactjs
 - Firebase
 - Geolocation
-- React Router
 - Leaflet
 - Toastify
 - Swiper
-
-## Technologies
-
 - Eslint
 - Prettier
 - Husky
-- React
 - Hooks
 - React Router Dom
-- Firebase
 
 ## Usage
 
